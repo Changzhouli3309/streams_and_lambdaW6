@@ -1,7 +1,6 @@
 package se.lexicon.streams_and_lambda;
 
 import java.util.*;
-import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 import se.lexicon.streams_and_lambda.utility.Gender;
@@ -175,12 +174,13 @@ public class Lab {
 
 		/* Your code here */
 		System.out.println("Find and change name:");
-		List<Person> newList = new ArrayList<>();
-		persons.stream().filter(p -> p.getLastName().equals("Ali")).forEach(p -> {
-			p.setFirstName("Muhammad");
-			newList.add(p);
-		});
-		newList.forEach(System.out::println);
+		List<Person> newList = persons.stream()
+				.filter(p -> p.getLastName().equals("Ali"))
+				.collect(Collectors.toList());
+		
+		newList.stream()
+			.peek(p->p.setFirstName("Muhammad"))
+			.forEach(System.out::println);
 	}
 
 	/**

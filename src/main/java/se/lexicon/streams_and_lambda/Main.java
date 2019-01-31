@@ -29,7 +29,7 @@ public class Main {
 		// Run your exercises here
 		boolean running = true;
 		while (running) {
-			System.out.println("\nRun witch one?(1-11)(0-quit)");
+			System.out.println("\nRun witch one?(1-11)(0-Quit)");
 			switch (getIntFromLimit(11, 0)) {
 			case 1:
 				theLab.exercise1();
