@@ -1,6 +1,7 @@
 package se.lexicon.streams_and_lambda;
 
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 import se.lexicon.streams_and_lambda.utility.Gender;
@@ -39,8 +40,13 @@ public class Lab {
 		List<String> list = new ArrayList<>(Arrays.asList("alpha", "bravo", "charlie", "delta", "echo", "foxtrot"));
 
 		/* Your code here */
+		System.out.println("Befor:");
+		list.forEach(s -> System.out.print(s + " "));
+
 		list.removeIf(s2 -> s2.length() % 2 != 0);
-		list.forEach(System.out::println);
+		System.out.println();
+		System.out.println("After:");
+		list.forEach(s -> System.out.print(s + " "));
 
 	}
 
@@ -53,8 +59,13 @@ public class Lab {
 		List<String> list = new ArrayList<>(Arrays.asList("alpha", "bravo", "charlie", "delta", "echo", "foxtrot"));
 
 		/* Your code here */
+		System.out.println("Befor:");
+
+		list.forEach(s -> System.out.print(s + " "));
 		list.replaceAll(String::toUpperCase);
-		list.forEach(System.out::println);
+		System.out.println();
+		System.out.println("After:");
+		list.forEach(s -> System.out.print(s + " "));
 	}
 
 	/**
@@ -80,10 +91,14 @@ public class Lab {
 	 */
 	public void exercise5() {
 		System.out.println("\nRunning exercise 5:\n");
-		List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		List<Integer> list = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
 
 		/* Your code here */
-		list.stream().parallel().forEach(System.out::println);
+		System.out.println("Befor:");
+		list.forEach(n -> System.out.print(n + " "));
+		System.out.println();
+		System.out.println("After:");
+		list.stream().parallel().forEach(n -> System.out.print(n + " "));
 	}
 
 	/**
@@ -96,7 +111,12 @@ public class Lab {
 		List<String> list = Arrays.asList("The", "Quick", "BROWN", "Fox", "Jumped", "Over", "The", "LAZY", "DOG");
 
 		/* Your code here */
+		System.out.println("Befor:");
+		list.forEach(s -> System.out.print(s + " "));
 		list = list.stream().map(String::toLowerCase).collect(Collectors.toList());
+
+		System.out.println();
+		System.out.println("After:");
 		list.forEach(s -> System.out.print(s + " "));
 	}
 
@@ -109,7 +129,12 @@ public class Lab {
 		List<String> list = Arrays.asList("The", "Quick", "BROWN", "Fox", "Jumped", "Over", "The", "LAZY", "DOG");
 
 		/* Your code here */
+		System.out.println("Befor:");
+		list.forEach(s -> System.out.print(s + " "));
 		list = list.stream().filter(s -> s.length() % 2 != 0).collect(Collectors.toList());
+
+		System.out.println();
+		System.out.println("After:");
 		list.forEach(s -> System.out.print(s + " "));
 	}
 
@@ -121,6 +146,7 @@ public class Lab {
 		System.out.println("\nRunning exercise 8:\n");
 
 		/* Your code here */
+		System.out.println("Lastname with A:");
 		persons.stream().filter(p -> p.getLastName().contains("A")).forEach(System.out::println);
 	}
 
@@ -132,6 +158,7 @@ public class Lab {
 		System.out.println("\nRunning exercise 9:\n");
 
 		/* Your code here */
+		System.out.println("Sorted by lastname:");
 		List<Person> sortList = persons.stream()
 				.sorted((p1, p2) -> p1.getLastName().compareToIgnoreCase(p2.getLastName()))
 				.collect(Collectors.toList());
@@ -147,6 +174,7 @@ public class Lab {
 		System.out.println("\nRunning exercise 10:\n");
 
 		/* Your code here */
+		System.out.println("Find and change name:");
 		List<Person> newList = new ArrayList<>();
 		persons.stream().filter(p -> p.getLastName().equals("Ali")).forEach(p -> {
 			p.setFirstName("Muhammad");
@@ -164,7 +192,7 @@ public class Lab {
 
 		/* Your code here */
 		long n = persons.stream().filter(p -> p.getGender().equals(Gender.FEMALE)).count();
-		System.out.println(n);
+		System.out.println(n + " people of from is female.");
 	}
 
 }
