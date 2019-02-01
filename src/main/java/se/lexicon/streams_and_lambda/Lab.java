@@ -41,10 +41,10 @@ public class Lab {
 		List<String> list = new ArrayList<>(Arrays.asList("alpha", "bravo", "charlie", "delta", "echo", "foxtrot"));
 
 		/* Your code here */
-		System.out.println("Befor:");
+		System.out.println("Before:");
 		list.forEach(s -> System.out.print(s + " "));
 
-		list.removeIf(s2 -> s2.length() % 2 != 0);
+		list.removeIf(s -> s.length() % 2 != 0);
 
 		System.out.println("\nAfter:");
 		list.forEach(s -> System.out.print(s + " "));
@@ -60,7 +60,7 @@ public class Lab {
 		List<String> list = new ArrayList<>(Arrays.asList("alpha", "bravo", "charlie", "delta", "echo", "foxtrot"));
 
 		/* Your code here */
-		System.out.println("Befor:");
+		System.out.println("Before:");
 		list.forEach(s -> System.out.print(s + " "));
 
 		list.replaceAll(String::toUpperCase);
@@ -83,8 +83,8 @@ public class Lab {
 		StringBuilder sb = new StringBuilder();
 
 		/* Your code here */
-		BiConsumer<String,Integer> toSb= (s, i) -> sb.append(s + i);
-		map.forEach(toSb);
+//		BiConsumer<String,Integer> toSb= (s, i) -> sb.append(s + i);
+		map.forEach((s, i) -> sb.append(s + i));
 		System.out.println(sb);
 	}
 
@@ -112,7 +112,7 @@ public class Lab {
 		List<String> list = Arrays.asList("The", "Quick", "BROWN", "Fox", "Jumped", "Over", "The", "LAZY", "DOG");
 
 		/* Your code here */
-		System.out.println("Befor:");
+		System.out.println("Before:");
 		list.forEach(s -> System.out.print(s + " "));
 
 		List<String> newList = list.stream().map(String::toLowerCase).collect(Collectors.toList());
@@ -130,7 +130,7 @@ public class Lab {
 		List<String> list = Arrays.asList("The", "Quick", "BROWN", "Fox", "Jumped", "Over", "The", "LAZY", "DOG");
 
 		/* Your code here */
-		System.out.println("Befor:");
+		System.out.println("Before:");
 		list.forEach(s -> System.out.print(s + " "));
 
 		List<String> newList = list.stream().filter(s -> s.length() % 2 != 0).collect(Collectors.toList());
