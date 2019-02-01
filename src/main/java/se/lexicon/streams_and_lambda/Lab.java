@@ -1,6 +1,8 @@
 package se.lexicon.streams_and_lambda;
 
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
@@ -96,10 +98,16 @@ public class Lab {
 		List<Integer> list = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
 
 		/* Your code here */
-		Runnable runnable = () -> {
+		ExecutorService eS = Executors.newSingleThreadExecutor();
+
+		eS.execute(() -> {
 			list.forEach(s -> System.out.print(s + " "));
-		};
-		runnable.run();
+		});
+
+		/*
+		 * Runnable runnable = () -> { list.forEach(s -> System.out.print(s + " ")); };
+		 * runnable.run();
+		 */
 	}
 
 	/**
@@ -179,9 +187,10 @@ public class Lab {
 		/* Your code here */
 		System.out.println("Find and change name:");
 
-		List<Person> newList = persons.stream().filter(p -> p.getLastName().equals("Ali")).collect(Collectors.toList());
+		List<Person> newList = persons.stream().filter(p -> p.getLastName().equals("Ali"))
+				.map(p -> new Person("Muhammad", "Ali", Gender.MALE)).collect(Collectors.toList());
 
-		newList.stream().peek(p -> p.setFirstName("Muhammad")).forEach(System.out::println);
+		newList.stream().forEach(System.out::println);
 	}
 
 	/**
