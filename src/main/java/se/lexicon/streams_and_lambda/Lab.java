@@ -1,6 +1,7 @@
 package se.lexicon.streams_and_lambda;
 
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 import se.lexicon.streams_and_lambda.utility.Gender;
@@ -26,8 +27,9 @@ public class Lab {
 		System.out.println("\nRunning exercise 1:\n");
 
 		/* Your code here */
-//		persons.stream().map(Person::getFirstName).forEach(System.out::println);
-		persons.stream().forEach(p -> System.out.println(p.getFirstName()));
+		persons.stream().map(Person::getFirstName).forEach(System.out::println);
+
+//		persons.stream().forEach(p -> System.out.println(p.getFirstName()));
 	}
 
 	/**
@@ -43,8 +45,8 @@ public class Lab {
 		list.forEach(s -> System.out.print(s + " "));
 
 		list.removeIf(s2 -> s2.length() % 2 != 0);
-		System.out.println();
-		System.out.println("After:");
+
+		System.out.println("\nAfter:");
 		list.forEach(s -> System.out.print(s + " "));
 
 	}
@@ -59,11 +61,11 @@ public class Lab {
 
 		/* Your code here */
 		System.out.println("Befor:");
-
 		list.forEach(s -> System.out.print(s + " "));
+
 		list.replaceAll(String::toUpperCase);
-		System.out.println();
-		System.out.println("After:");
+
+		System.out.println("\nAfter:");
 		list.forEach(s -> System.out.print(s + " "));
 	}
 
@@ -81,7 +83,8 @@ public class Lab {
 		StringBuilder sb = new StringBuilder();
 
 		/* Your code here */
-		map.forEach((s, i) -> sb.append(s + i));
+		BiConsumer<String,Integer> toSb= (s, i) -> sb.append(s + i);
+		map.forEach(toSb);
 		System.out.println(sb);
 	}
 
@@ -93,11 +96,10 @@ public class Lab {
 		List<Integer> list = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
 
 		/* Your code here */
-		System.out.println("Befor:");
-		list.forEach(n -> System.out.print(n + " "));
-		System.out.println();
-		System.out.println("After:");
-		list.stream().parallel().forEach(n -> System.out.print(n + " "));
+		Runnable runnable = () -> {
+			list.forEach(s -> System.out.print(s + " "));
+		};
+		runnable.run();
 	}
 
 	/**
@@ -112,11 +114,11 @@ public class Lab {
 		/* Your code here */
 		System.out.println("Befor:");
 		list.forEach(s -> System.out.print(s + " "));
-		list = list.stream().map(String::toLowerCase).collect(Collectors.toList());
 
-		System.out.println();
-		System.out.println("After:");
-		list.forEach(s -> System.out.print(s + " "));
+		List<String> newList = list.stream().map(String::toLowerCase).collect(Collectors.toList());
+
+		System.out.println("\nAfter:");
+		newList.forEach(s -> System.out.print(s + " "));
 	}
 
 	/**
@@ -130,11 +132,11 @@ public class Lab {
 		/* Your code here */
 		System.out.println("Befor:");
 		list.forEach(s -> System.out.print(s + " "));
-		list = list.stream().filter(s -> s.length() % 2 != 0).collect(Collectors.toList());
 
-		System.out.println();
-		System.out.println("After:");
-		list.forEach(s -> System.out.print(s + " "));
+		List<String> newList = list.stream().filter(s -> s.length() % 2 != 0).collect(Collectors.toList());
+
+		System.out.println("\nAfter:");
+		newList.forEach(s -> System.out.print(s + " "));
 	}
 
 	/**
@@ -158,9 +160,11 @@ public class Lab {
 
 		/* Your code here */
 		System.out.println("Sorted by lastname:");
+
 		List<Person> sortList = persons.stream()
 				.sorted((p1, p2) -> p1.getLastName().compareToIgnoreCase(p2.getLastName()))
 				.collect(Collectors.toList());
+
 		sortList.forEach(System.out::println);
 	}
 
@@ -174,13 +178,10 @@ public class Lab {
 
 		/* Your code here */
 		System.out.println("Find and change name:");
-		List<Person> newList = persons.stream()
-				.filter(p -> p.getLastName().equals("Ali"))
-				.collect(Collectors.toList());
-		
-		newList.stream()
-			.peek(p->p.setFirstName("Muhammad"))
-			.forEach(System.out::println);
+
+		List<Person> newList = persons.stream().filter(p -> p.getLastName().equals("Ali")).collect(Collectors.toList());
+
+		newList.stream().peek(p -> p.setFirstName("Muhammad")).forEach(System.out::println);
 	}
 
 	/**
@@ -191,7 +192,8 @@ public class Lab {
 		System.out.println("\nRunning exercise 11:\n");
 
 		/* Your code here */
-		long n = persons.stream().filter(p -> p.getGender().equals(Gender.FEMALE)).count();
+		long n = persons.stream().filter(p -> p.getGender() == Gender.FEMALE).count();
+
 		System.out.println(n + " people of from is female.");
 	}
 
