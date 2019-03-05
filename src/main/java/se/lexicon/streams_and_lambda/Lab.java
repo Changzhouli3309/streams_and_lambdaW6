@@ -84,7 +84,6 @@ public class Lab {
 		StringBuilder sb = new StringBuilder();
 
 		/* Your code here */
-//		BiConsumer<String,Integer> toSb= (s, i) -> sb.append(s + i);
 		map.forEach((s, i) -> sb.append(s + i));
 		System.out.println(sb);
 	}
@@ -155,7 +154,7 @@ public class Lab {
 
 		/* Your code here */
 		System.out.println("Lastname with A:");
-		persons.stream().filter(p -> p.getLastName().contains("A")).forEach(System.out::println);
+		persons.stream().filter(p -> p.getLastName().startsWith("A")).forEach(System.out::println);
 	}
 
 	/**
